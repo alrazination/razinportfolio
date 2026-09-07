@@ -1,5 +1,5 @@
 /* =====================================================================
-   RAZIN ABDULLAH — PORTFOLIO SCRIPT
+   RAZIN ABDULLAH — PORTFOLIO SCRIPT (V2)
    Plain JavaScript, no build step, no dependencies.
 
    Sections in this file:
@@ -7,9 +7,9 @@
    2. Project data            — add/remove portfolio projects here
    3. Reduced motion helper
    4. Navigation (scroll state + mobile menu)
-   5. Scroll-reveal animations
-   6. Hero role-text rotation + parallax
-   7. Selected work carousel (renders project cards from the data above)
+   5. Hero role rotation + parallax
+   6. Selected work list (renders project entries from the data above)
+   7. Manifesto reveal (the one deliberate scroll moment on the page)
    8. Contact link wiring (email / LinkedIn)
    ===================================================================== */
 
@@ -26,8 +26,8 @@ const siteConfig = {
   linkedin: "",        // e.g. "https://www.linkedin.com/in/razinabdullah"
   heroVideo: "assets/videos/hero.mp4",
   heroPoster: "assets/images/hero-poster.svg",
-  // Additional hero statements the role text rotates through as the
-  // visitor scrolls past the hero. Keep these short.
+  // Additional role statements the hero rotates through as the visitor
+  // scrolls past the hero. Keep these short.
   heroRoles: [
     "Learning Experience Designer",
     "Expert in Simulation Learning Design",
@@ -39,8 +39,11 @@ const siteConfig = {
    2. PROJECT DATA
    To add a project: duplicate one object below and change its fields.
    - image: path to a photo/still representing the project
-   - link: leave "" to show a "coming soon" placeholder page, or paste
-     a full URL (including https://) to link to a live project.
+   - link: leave "" to auto-link to the matching /projects/project-0N.html
+     placeholder, or paste a full URL to link to a live case study.
+   The "Selected Work" section lays projects out in a repeating 3-part
+   rhythm (featured / offset-right / offset-left), so a 4th, 5th, etc.
+   project added here will pick the rhythm back up automatically.
    --------------------------------------------------------------------- */
 const projects = [
   {
@@ -52,11 +55,11 @@ const projects = [
     link: "projects/project-01.html"
   },
   {
-    title: "PowerPoint to Interactive Learning",
+    title: "Learning Experience Transformation",
     category: "eLearning Development",
     image: "assets/images/projects/project-02.svg",
-    description: "A static presentation rebuilt as an interactive, self-paced learning experience.",
-    cta: "View project",
+    description: "Static content rebuilt as an interactive, self-paced learning experience.",
+    cta: "View case study",
     link: "projects/project-02.html"
   },
   {
@@ -64,7 +67,7 @@ const projects = [
     category: "Learning Evaluation",
     image: "assets/images/projects/project-03.svg",
     description: "Evaluation built directly into the learning experience, rather than bolted on afterwards.",
-    cta: "View project",
+    cta: "View case study",
     link: "projects/project-03.html"
   }
 ];
@@ -98,7 +101,6 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     menuBtn.setAttribute('aria-expanded', String(isOpen));
   });
 
-  // Close mobile menu after a link is tapped
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('is-open');
@@ -109,34 +111,10 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 })();
 
 /* ---------------------------------------------------------------------
-   5. SCROLL-REVEAL ANIMATIONS
-   Elements with the .reveal class fade/slide in once they enter the
-   viewport. Disabled entirely under reduced-motion (see CSS + guard
-   below), where everything is simply visible.
-   --------------------------------------------------------------------- */
-(function initReveal() {
-  const items = document.querySelectorAll('.reveal');
-  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-    items.forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
-  items.forEach(el => observer.observe(el));
-})();
-
-/* ---------------------------------------------------------------------
-   6. HERO ROLE ROTATION + PARALLAX
+   5. HERO ROLE ROTATION + PARALLAX
    As the visitor scrolls through the hero, the role text swaps between
-   the statements in siteConfig.heroRoles, and the video/text move at
-   slightly different speeds for a subtle cinematic parallax.
+   the statements in siteConfig.heroRoles, and the media/text move at
+   slightly different speeds for a subtle, restrained parallax.
    --------------------------------------------------------------------- */
 (function initHero() {
   const hero = document.getElementById('hero');
@@ -164,16 +142,15 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     const playPromise = video.play();
     if (playPromise && playPromise.catch) {
       playPromise.catch(() => {
-        // Autoplay was blocked — the poster image still shows, so the
-        // hero never looks broken. This is common when double-clicking
-        // index.html open directly rather than serving it (see README).
+        // Autoplay was blocked — the warm placeholder texture still
+        // shows underneath, so the hero never looks broken.
       });
     }
   }
 
   // If the hero video fails to load (e.g. placeholder file missing),
-  // hide it and let the animated gradient fallback underneath show
-  // through instead of a broken video element.
+  // hide it and let the placeholder texture underneath show through
+  // instead of a broken video element.
   video.addEventListener('error', () => {
     const err = video.error;
     const codes = { 1: 'MEDIA_ERR_ABORTED', 2: 'MEDIA_ERR_NETWORK', 3: 'MEDIA_ERR_DECODE (often an unsupported codec)', 4: 'MEDIA_ERR_SRC_NOT_SUPPORTED (file missing, wrong path, or wrong format)' };
@@ -194,13 +171,11 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     const progress = Math.min(Math.max(scrollY / heroHeight, 0), 1);
 
     if (!prefersReducedMotion) {
-      // Background moves slowest, text moves slightly faster (parallax)
-      heroMedia.style.transform = `translateY(${progress * heroHeight * 0.1}px) scale(${1 + progress * 0.06})`;
-      heroContent.style.transform = `translateY(${progress * heroHeight * 0.18}px)`;
+      heroMedia.style.transform = `translateY(${progress * heroHeight * 0.08}px) scale(${1 + progress * 0.05})`;
+      heroContent.style.transform = `translateY(${progress * heroHeight * 0.14}px)`;
       heroContent.style.opacity = String(1 - progress * 1.1);
     }
 
-    // Swap role text at two scroll thresholds within the hero
     const roles = siteConfig.heroRoles;
     let targetIndex = 0;
     if (progress > 0.66) targetIndex = 2;
@@ -212,7 +187,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
       window.setTimeout(() => {
         roleEl.textContent = roles[targetIndex];
         roleEl.classList.remove('is-swapping');
-      }, 220);
+      }, 200);
     }
 
     ticking = false;
@@ -229,62 +204,66 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 })();
 
 /* ---------------------------------------------------------------------
-   7. SELECTED WORK CAROUSEL
-   Renders project cards from the `projects` array above into the
-   horizontal track, and wires up the prev/next buttons.
+   6. SELECTED WORK LIST
+   Renders project entries from the `projects` array above. Layout
+   variety (featured / offset-right / offset-left) is handled entirely
+   in CSS via nth-of-type, so this stays a plain, boring render loop.
    --------------------------------------------------------------------- */
 (function initWork() {
-  const track = document.getElementById('workTrack');
-  const prevBtn = document.getElementById('workPrev');
-  const nextBtn = document.getElementById('workNext');
-  if (!track) return;
+  const list = document.getElementById('workList');
+  if (!list) return;
 
   projects.forEach((project, i) => {
-    const card = document.createElement('a');
-    card.className = 'project-card reveal';
-    // Projects without a real link fall back to the matching
-    // placeholder page under /projects/, so the click always works.
-    card.href = project.link || `projects/project-0${i + 1}.html`;
-
     const num = String(i + 1).padStart(2, '0');
+    const item = document.createElement('article');
+    item.className = 'work__item';
 
-    card.innerHTML = `
-      <div class="project-card__media">
-        <img src="${project.image}" alt="" loading="lazy"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="project-card__placeholder" style="display:none;">Project ${num} — image placeholder</div>
+    item.innerHTML = `
+      <div class="work__media">
+        <img src="${project.image}" alt="${project.title} — cover artwork" loading="lazy"
+             onerror="this.style.display='none';">
       </div>
-      <div class="project-card__category">${project.category}</div>
-      <div class="project-card__title">${project.title}</div>
-      <div class="project-card__desc">${project.description}</div>
-      <div class="project-card__cta">${project.cta} <span class="arrow">→</span></div>
+      <div class="work__body">
+        <span class="work__num">Project ${num}</span>
+        <span class="work__category">${project.category}</span>
+        <h3 class="work__title">${project.title}</h3>
+        <p class="work__desc">${project.description}</p>
+        <a class="work__cta" href="${project.link || `projects/project-0${i + 1}.html`}">${project.cta} →</a>
+      </div>
     `;
-    track.appendChild(card);
+    list.appendChild(item);
   });
+})();
 
-  // Re-observe newly injected .reveal cards
-  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    track.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  } else {
-    track.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+/* ---------------------------------------------------------------------
+   7. MANIFESTO REVEAL
+   The one deliberate scroll-triggered moment on the page — everything
+   else stays static and calm. Disabled entirely under reduced motion,
+   where the manifesto is simply visible from the start.
+   --------------------------------------------------------------------- */
+(function initManifesto() {
+  const el = document.querySelector('.manifesto');
+  if (!el) return;
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    return;
   }
 
-  function scrollByCard(direction) {
-    const card = track.querySelector('.project-card');
-    const distance = card ? card.getBoundingClientRect().width + 28 : 400;
-    track.scrollBy({ left: distance * direction, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-  }
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(28px)';
+  el.style.transition = `opacity 0.9s ${prefersReducedMotion ? '0s' : 'cubic-bezier(0.22, 1, 0.36, 1)'}, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)`;
 
-  prevBtn.addEventListener('click', () => scrollByCard(-1));
-  nextBtn.addEventListener('click', () => scrollByCard(1));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(el);
 })();
 
 /* ---------------------------------------------------------------------

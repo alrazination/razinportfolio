@@ -1,10 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
-  <rect width="1200" height="900" fill="#171233"/>
-  <circle cx="880" cy="220" r="260" fill="#43E8C2" opacity="0.22"/>
-  <path d="M120 700 Q 350 500 620 640 T 1100 600 L 1100 900 L 120 900 Z" fill="#1FB89A" opacity="0.35"/>
-  <circle cx="300" cy="330" r="70" fill="#43E8C2" opacity="0.55"/>
-  <rect x="260" y="290" width="80" height="80" rx="20" fill="#0F0A24" opacity="0.3"/>
-  <circle cx="620" cy="520" r="18" fill="#F6F4FF" opacity="0.8"/>
-  <circle cx="700" cy="470" r="10" fill="#F6F4FF" opacity="0.6"/>
-  <circle cx="560" cy="460" r="8" fill="#F6F4FF" opacity="0.5"/>
+  <rect width="1200" height="900" fill="#E8E3D9"/>
+  <g stroke="#171715" stroke-width="2" fill="none" opacity="0.55">
+    <path d="M180 200 L 460 380"/>
+    <path d="M460 380 L 300 560"/>
+    <path d="M460 380 L 640 540"/>
+    <path d="M640 540 L 520 720"/>
+    <path d="M640 540 L 820 660"/>
+    <path d="M180 200 L 260 420"/>
+    <path d="M260 420 L 120 610"/>
+  </g>
+  <circle cx="180" cy="200" r="12" fill="#171715"/>
+  <circle cx="460" cy="380" r="10" fill="#F06A4E"/>
+  <circle cx="260" cy="420" r="8" fill="#171715" opacity="0.6"/>
+  <circle cx="300" cy="560" r="8" fill="#171715" opacity="0.4"/>
+  <circle cx="640" cy="540" r="10" fill="#F06A4E"/>
+  <circle cx="120" cy="610" r="8" fill="#171715" opacity="0.4"/>
+  <circle cx="520" cy="720" r="9" fill="#D9F36B" stroke="#171715" stroke-width="1.5"/>
+  <circle cx="820" cy="660" r="9" fill="#171715" opacity="0.4"/>
+  <g fill="#171715" opacity="0.28">
+    <rect x="860" y="120" width="220" height="1" />
+    <rect x="860" y="150" width="160" height="1" />
+    <rect x="860" y="180" width="190" height="1" />
+  </g>
 </svg>

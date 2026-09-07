@@ -1,10 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
-  <rect width="1200" height="900" fill="#171233"/>
-  <circle cx="280" cy="250" r="240" fill="#FF7A59" opacity="0.22"/>
-  <rect x="380" y="380" width="440" height="280" rx="24" fill="#251C4D"/>
-  <rect x="410" y="410" width="380" height="30" rx="8" fill="#FF7A59" opacity="0.7"/>
-  <rect x="410" y="460" width="280" height="14" rx="6" fill="#F6F4FF" opacity="0.4"/>
-  <rect x="410" y="486" width="320" height="14" rx="6" fill="#F6F4FF" opacity="0.3"/>
-  <polygon points="560,560 560,620 610,590" fill="#43E8C2"/>
-  <circle cx="950" cy="680" r="90" fill="#FFC94D" opacity="0.25"/>
+  <rect width="1200" height="900" fill="#F1EEE7"/>
+  <g opacity="0.5">
+    <rect x="160" y="220" width="360" height="14" fill="#171715"/>
+    <rect x="160" y="256" width="260" height="14" fill="#171715" opacity="0.6"/>
+    <rect x="160" y="292" width="300" height="14" fill="#171715" opacity="0.4"/>
+  </g>
+  <line x1="600" y1="180" x2="600" y2="720" stroke="#171715" stroke-width="1" opacity="0.2"/>
+  <g>
+    <rect x="700" y="200" width="340" height="120" fill="none" stroke="#171715" stroke-width="2" opacity="0.7"/>
+    <rect x="700" y="200" width="340" height="34" fill="#171715" opacity="0.85"/>
+    <circle cx="720" cy="217" r="5" fill="#F1EEE7"/>
+    <rect x="726" y="270" width="120" height="30" fill="#F06A4E"/>
+    <rect x="860" y="270" width="120" height="30" fill="none" stroke="#171715" stroke-width="1.5" opacity="0.6"/>
+  </g>
+  <g>
+    <rect x="700" y="380" width="160" height="160" fill="none" stroke="#171715" stroke-width="2" opacity="0.7"/>
+    <rect x="880" y="380" width="160" height="160" fill="#D9F36B" opacity="0.5"/>
+    <path d="M700 460 L 860 460" stroke="#171715" stroke-width="1" opacity="0.3"/>
+    <path d="M960 380 L 960 540" stroke="#171715" stroke-width="1" opacity="0.3"/>
+  </g>
+  <path d="M470 260 C 560 260, 610 260, 690 260" stroke="#171715" stroke-width="1.5" fill="none" opacity="0.4" stroke-dasharray="6 8"/>
 </svg>
