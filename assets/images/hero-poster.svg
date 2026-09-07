@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
-  <rect width="1600" height="900" fill="#F1EEE7"/>
-  <path d="M0 620 C 320 520, 540 700, 860 560 S 1340 480, 1600 600 L 1600 900 L 0 900 Z" fill="#E8E3D9"/>
-  <circle cx="1290" cy="200" r="340" fill="#F06A4E" opacity="0.10"/>
-  <circle cx="220" cy="700" r="260" fill="#D9F36B" opacity="0.16"/>
-  <g stroke="#171715" stroke-width="1" opacity="0.14">
+  <rect width="1600" height="900" fill="#15130E"/>
+  <path d="M0 620 C 320 520, 540 700, 860 560 S 1340 480, 1600 600 L 1600 900 L 0 900 Z" fill="#1D1A14"/>
+  <circle cx="1290" cy="200" r="340" fill="#C7A15A" opacity="0.09"/>
+  <circle cx="220" cy="700" r="260" fill="#9C5A3C" opacity="0.14"/>
+  <g stroke="#F2EDE2" stroke-width="1" opacity="0.08">
     <line x1="0" y1="120" x2="1600" y2="120"/>
     <line x1="0" y1="780" x2="1600" y2="780"/>
   </g>
-  <g stroke="#171715" stroke-width="1.4" opacity="0.5" fill="none">
+  <g stroke="#C7A15A" stroke-width="1.4" opacity="0.55" fill="none">
     <path d="M120 470 Q 400 380 620 460 T 1100 420"/>
   </g>
-  <circle cx="620" cy="460" r="5" fill="#171715" opacity="0.6"/>
-  <circle cx="1100" cy="420" r="5" fill="#171715" opacity="0.6"/>
+  <circle cx="620" cy="460" r="5" fill="#C7A15A" opacity="0.8"/>
+  <circle cx="1100" cy="420" r="5" fill="#F2EDE2" opacity="0.5"/>
 </svg>

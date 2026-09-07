@@ -1,31 +1,28 @@
 /* =====================================================================
-   RAZIN ABDULLAH — PORTFOLIO STYLESHEET (V2)
-   Warm, editorial, typography-led visual system.
+   RAZIN ABDULLAH — PORTFOLIO STYLESHEET (V3)
+   Dark, warm, premium. One restrained accent, quiet surfaces, no neon.
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
    1. DESIGN TOKENS
    --------------------------------------------------------------------- */
 :root {
-  /* Surfaces */
-  --paper:        #F1EEE7;
-  --paper-2:      #E8E3D9;
-  --ink:          #171715;
-  --deep:         #1B211F;
+  /* Surfaces — warm near-black, not pure black. Three depths give the
+     page rhythm without ever leaving the dark palette. */
+  --bg:           #15130E;   /* base */
+  --bg-2:         #1D1A14;   /* slightly elevated */
+  --bg-3:         #0D0C08;   /* deepest — the two bookend moments */
 
   /* Text */
-  --text:         var(--ink);
-  --text-on-dark: var(--paper);
-  --stone:        #777168;
-  --stone-on-dark: #9C978B;
-  --line:         rgba(23, 23, 21, 0.14);
-  --line-strong:  rgba(23, 23, 21, 0.28);
-  --line-on-dark: rgba(241, 238, 231, 0.16);
-  --line-on-dark-strong: rgba(241, 238, 231, 0.32);
+  --text:         #F2EDE2;   /* warm cream */
+  --stone:        #9C9184;   /* muted warm grey */
+  --line:         rgba(242, 237, 226, 0.10);
+  --line-strong:  rgba(242, 237, 226, 0.24);
 
-  /* Accents — punctuation, not paint */
-  --acid:         #D9F36B;
-  --orange:       #F06A4E;
+  /* Accent — one restrained metal, used as punctuation only */
+  --brass:        #C7A15A;
+  --brass-dim:    #8F7038;
+  --rust:         #9C5A3C;
 
   /* Type */
   --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
@@ -60,12 +57,27 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* A very quiet film-grain layer over the whole page — the kind of
+   tactile detail that separates "dark mode" from "premium dark". */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
 }
 
 h1, h2, h3 {
@@ -97,7 +109,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid var(--brass);
   outline-offset: 3px;
 }
 
@@ -105,10 +117,10 @@ button {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--bg-3);
+  color: var(--text);
   padding: 12px 20px;
-  z-index: 200;
+  z-index: 1000;
   font-size: 0.9rem;
 }
 .skip-link:focus { left: var(--gutter); top: 12px; }
@@ -124,10 +136,11 @@ section { position: relative; }
   letter-spacing: 0.02em;
   margin-bottom: 18px;
 }
-.section-head__index--light { color: var(--stone-on-dark); }
+.section-head__index--light { color: var(--stone); }
 .section-head h2 {
   font-size: clamp(2.1rem, 4.2vw, 3.2rem);
   margin-bottom: 18px;
+  color: var(--text);
 }
 .section-head p {
   color: var(--stone);
@@ -146,12 +159,11 @@ section { position: relative; }
   padding: 24px var(--gutter);
   transition: background var(--dur-fast) var(--ease), padding var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
   border-bottom: 1px solid transparent;
-  mix-blend-mode: normal;
 }
 
 .nav.is-scrolled {
-  background: rgba(241, 238, 231, 0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(21, 19, 14, 0.88);
+  backdrop-filter: blur(10px);
   padding-top: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--line);
@@ -183,9 +195,9 @@ section { position: relative; }
   position: relative;
   padding-bottom: 3px;
   border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.nav__links a:hover { border-color: var(--text); }
+.nav__links a:hover { border-color: var(--brass); color: var(--brass); }
 
 .nav__cta {
   border: 1px solid var(--line-strong);
@@ -195,7 +207,7 @@ section { position: relative; }
   white-space: nowrap;
   transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
-.nav__cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.nav__cta:hover { background: var(--brass); color: var(--bg-3); border-color: var(--brass); }
 
 .nav__menu-btn {
   display: none;
@@ -222,7 +234,7 @@ section { position: relative; }
   flex-direction: column;
   max-height: 0;
   overflow: hidden;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--text);
   margin-top: 0;
   border: 0 solid var(--line);
@@ -246,16 +258,16 @@ section { position: relative; }
 
 /* ---------------------------------------------------------------------
    4. HERO
-   Video as an atmospheric layer, not a dark-gradient-plus-centered-text
-   template. Type sits bottom-left; the vignette only shades the text
-   zone, not the whole frame.
+   Video as an atmospheric layer over a dark base. The scrim is dark
+   (matching the page) rather than light, since the type sitting on
+   top of it is cream, not ink.
    --------------------------------------------------------------------- */
 .hero {
   position: relative;
   height: 100vh;
   min-height: 640px;
   overflow: hidden;
-  background: var(--paper);
+  background: var(--bg);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -275,18 +287,18 @@ section { position: relative; }
   object-position: center;
   z-index: 1;
 }
-/* Warm, quiet placeholder texture — stands in for the video until a
-   real one is added, and shows through if it fails to load. */
+/* Quiet placeholder atmosphere — stands in for the video until a real
+   one is added, and shows through if it fails to load. */
 .hero__fallback {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 65% 55% at 82% 18%, rgba(240, 106, 78, 0.16), transparent 62%),
-    radial-gradient(ellipse 60% 50% at 12% 82%, rgba(217, 243, 107, 0.22), transparent 60%),
-    var(--paper);
+    radial-gradient(ellipse 60% 50% at 82% 15%, rgba(199, 161, 90, 0.14), transparent 62%),
+    radial-gradient(ellipse 55% 45% at 12% 85%, rgba(156, 90, 60, 0.16), transparent 60%),
+    var(--bg);
   background-size: 220% 220%, 220% 220%, 100% 100%;
-  animation: heroDrift 26s ease-in-out infinite;
+  animation: heroDrift 28s ease-in-out infinite;
 }
 @keyframes heroDrift {
   0%   { background-position: 0% 0%, 100% 100%; }
@@ -296,14 +308,11 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .hero__fallback { animation: none; }
 }
-/* Text sits in dark ink, so the legibility scrim under it needs to be
-   light (paper-toned), not dark — this keeps the hero readable over
-   any real video footage without resorting to a heavy dark wash. */
 .hero__grain {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(0deg, rgba(241,238,231,0.88) 0%, rgba(241,238,231,0.55) 22%, rgba(241,238,231,0) 46%);
+  background: linear-gradient(0deg, rgba(13,12,8,0.88) 0%, rgba(13,12,8,0.5) 24%, rgba(13,12,8,0) 52%);
   pointer-events: none;
 }
 
@@ -312,7 +321,7 @@ section { position: relative; }
   z-index: 3;
   padding: 100px var(--gutter) 0;
   font-size: 0.82rem;
-  color: rgba(23, 23, 21, 0.6);
+  color: rgba(242, 237, 226, 0.5);
   max-width: 380px;
   white-space: nowrap;
 }
@@ -336,7 +345,7 @@ section { position: relative; }
   font-size: clamp(3rem, 9vw, 7.5rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .hero__meta {
@@ -347,7 +356,7 @@ section { position: relative; }
   font-family: var(--sans);
   font-weight: 600;
   font-size: 1rem;
-  color: var(--orange);
+  color: var(--brass);
   margin-bottom: 14px;
   min-height: 1.4em;
   transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
@@ -358,7 +367,7 @@ section { position: relative; }
   font-family: var(--serif);
   font-style: italic;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-  color: var(--ink);
+  color: rgba(242, 237, 226, 0.9);
 }
 
 .hero__explore {
@@ -369,7 +378,7 @@ section { position: relative; }
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--ink);
+  color: var(--text);
   font-size: 0.85rem;
 }
 .hero__explore-arrow {
@@ -395,7 +404,7 @@ section { position: relative; }
    js/main.js still inherit an editorial rhythm.
    --------------------------------------------------------------------- */
 .work {
-  background: var(--paper);
+  background: var(--bg);
   padding: 140px 0 60px;
 }
 .work__list {
@@ -414,7 +423,8 @@ section { position: relative; }
 .work__media {
   position: relative;
   overflow: hidden;
-  background: var(--paper-2);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
 }
 .work__media img {
   width: 100%; height: 100%;
@@ -431,7 +441,7 @@ section { position: relative; }
 }
 .work__category {
   font-size: 0.85rem;
-  color: var(--orange);
+  color: var(--brass);
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -440,6 +450,7 @@ section { position: relative; }
   font-size: clamp(1.7rem, 3vw, 2.6rem);
   margin-bottom: 18px;
   max-width: 16ch;
+  color: var(--text);
 }
 .work__desc {
   color: var(--stone);
@@ -452,12 +463,12 @@ section { position: relative; }
   display: inline-flex;
   align-self: flex-start;
   font-size: 0.92rem;
-  color: var(--ink);
+  color: var(--text);
   border-bottom: 1px solid var(--line-strong);
   padding-bottom: 3px;
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.work__item:hover .work__cta { border-color: var(--orange); }
+.work__item:hover .work__cta { border-color: var(--brass); color: var(--brass); }
 
 /* Featured project — full width, image dominant, largest type */
 .work__item:nth-of-type(3n+1) {
@@ -500,17 +511,19 @@ section { position: relative; }
 
 /* ---------------------------------------------------------------------
    6. MANIFESTO (DESIGN PHILOSOPHY)
-   The one big bold moment on the page — deep, quiet surface, huge
-   type, no color tricks on individual words.
+   The richest, darkest surface on the page — the boldest single
+   moment. No color tricks on individual words, just scale and quiet.
    --------------------------------------------------------------------- */
 .manifesto {
-  background: var(--deep);
-  color: var(--text-on-dark);
+  background: var(--bg-3);
+  color: var(--text);
   padding: 150px 0 130px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .manifesto__eyebrow {
   font-size: 0.85rem;
-  color: var(--stone-on-dark);
+  color: var(--stone);
   margin-bottom: 28px;
 }
 .manifesto__statement {
@@ -520,16 +533,17 @@ section { position: relative; }
   letter-spacing: -0.02em;
   line-height: 0.98;
   margin-bottom: 44px;
+  color: var(--text);
 }
 .manifesto__support {
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   max-width: 52ch;
-  color: rgba(241, 238, 231, 0.82);
+  color: rgba(242, 237, 226, 0.78);
   margin-bottom: 64px;
 }
 .manifesto__aside {
   max-width: 56ch;
-  border-left: 2px solid var(--acid);
+  border-left: 2px solid var(--brass);
   padding-left: 24px;
   margin-bottom: 96px;
   display: flex;
@@ -540,14 +554,14 @@ section { position: relative; }
   font-family: var(--serif);
   font-style: italic;
   font-size: 1.1rem;
-  color: rgba(241, 238, 231, 0.9);
+  color: rgba(242, 237, 226, 0.9);
 }
 
 .principles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 48px;
-  border-top: 1px solid var(--line-on-dark);
+  border-top: 1px solid var(--line);
   padding-top: 48px;
 }
 .principle h3 {
@@ -555,9 +569,10 @@ section { position: relative; }
   font-weight: 600;
   font-size: 1.15rem;
   margin-bottom: 12px;
+  color: var(--text);
 }
 .principle p {
-  color: var(--stone-on-dark);
+  color: var(--stone);
   font-size: 0.98rem;
   max-width: 32ch;
 }
@@ -571,7 +586,7 @@ section { position: relative; }
    Typography-led list. No cards, no pills.
    --------------------------------------------------------------------- */
 .services {
-  background: var(--paper-2);
+  background: var(--bg-2);
   padding: 140px 0;
 }
 
@@ -597,6 +612,7 @@ section { position: relative; }
   font-family: var(--serif);
   font-size: clamp(1.2rem, 2.2vw, 1.6rem);
   font-weight: 500;
+  color: var(--text);
 }
 .service__desc {
   color: var(--stone);
@@ -606,13 +622,13 @@ section { position: relative; }
 }
 .service__cta {
   font-size: 0.88rem;
-  color: var(--ink);
+  color: var(--text);
   white-space: nowrap;
   justify-self: end;
   border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.service:hover .service__cta { border-color: var(--orange); color: var(--orange); }
+.service:hover .service__cta { border-color: var(--brass); color: var(--brass); }
 
 @media (max-width: 860px) {
   .service {
@@ -627,7 +643,7 @@ section { position: relative; }
    8. WHY THIS APPROACH
    --------------------------------------------------------------------- */
 .benefits {
-  background: var(--paper);
+  background: var(--bg);
   padding: 140px 0;
 }
 .benefit-grid {
@@ -642,6 +658,7 @@ section { position: relative; }
   font-size: clamp(1.3rem, 2.2vw, 1.6rem);
   margin-bottom: 14px;
   max-width: 18ch;
+  color: var(--text);
 }
 .benefit p {
   color: var(--stone);
@@ -657,7 +674,7 @@ section { position: relative; }
    9. PROCESS
    --------------------------------------------------------------------- */
 .process {
-  background: var(--paper-2);
+  background: var(--bg-2);
   padding: 140px 0;
 }
 .process__list {
@@ -678,12 +695,13 @@ section { position: relative; }
   font-family: var(--serif);
   font-style: italic;
   font-size: 1.1rem;
-  color: var(--orange);
+  color: var(--brass);
 }
 .process__stage h3 {
   font-family: var(--sans);
   font-weight: 600;
   font-size: 1.15rem;
+  color: var(--text);
 }
 .process__stage p {
   color: var(--stone);
@@ -702,7 +720,7 @@ section { position: relative; }
    10. ABOUT / CREDENTIALS
    --------------------------------------------------------------------- */
 .about {
-  background: var(--paper);
+  background: var(--bg);
   padding: 140px 0;
 }
 .about__grid {
@@ -710,7 +728,7 @@ section { position: relative; }
   grid-template-columns: 1.1fr 1fr;
   gap: 64px;
 }
-.about__intro h2 { font-size: clamp(2.1rem, 4.2vw, 3.2rem); margin-bottom: 20px; }
+.about__intro h2 { font-size: clamp(2.1rem, 4.2vw, 3.2rem); margin-bottom: 20px; color: var(--text); }
 .about__intro p {
   color: var(--stone);
   font-size: 1.05rem;
@@ -736,7 +754,7 @@ section { position: relative; }
 .credential__stat {
   font-family: var(--serif);
   font-size: 1.3rem;
-  color: var(--ink);
+  color: var(--brass);
   white-space: nowrap;
 }
 .credential__label {
@@ -754,22 +772,25 @@ section { position: relative; }
 
 /* ---------------------------------------------------------------------
    11. CONTACT
+   The other bookend — same deep surface as the manifesto.
    --------------------------------------------------------------------- */
 .contact {
-  background: var(--ink);
-  color: var(--text-on-dark);
+  background: var(--bg-3);
+  color: var(--text);
   padding: 160px 0 120px;
+  border-top: 1px solid var(--line);
 }
 .contact__statement {
   font-family: var(--serif);
   font-size: clamp(2.8rem, 8vw, 5.6rem);
   margin: 24px 0 20px;
+  color: var(--text);
 }
 .contact__sub {
   font-family: var(--serif);
   font-style: italic;
   font-size: clamp(1.2rem, 2vw, 1.5rem);
-  color: var(--acid);
+  color: var(--brass);
   margin-bottom: 56px;
 }
 
@@ -790,15 +811,15 @@ section { position: relative; }
   transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
 .btn--primary {
-  background: var(--acid);
-  color: var(--ink);
+  background: var(--brass);
+  color: var(--bg-3);
 }
-.btn--primary:hover { background: var(--orange); color: var(--paper); }
+.btn--primary:hover { background: var(--text); color: var(--bg-3); }
 .btn--ghost {
-  border-color: var(--line-on-dark-strong);
-  color: var(--text-on-dark);
+  border-color: var(--line-strong);
+  color: var(--text);
 }
-.btn--ghost:hover { border-color: var(--text-on-dark); }
+.btn--ghost:hover { border-color: var(--brass); color: var(--brass); }
 
 .contact__meta {
   display: flex;
@@ -807,8 +828,8 @@ section { position: relative; }
 }
 .contact__meta-link {
   font-size: 0.95rem;
-  color: var(--stone-on-dark);
-  border-bottom: 1px solid var(--line-on-dark-strong);
+  color: var(--stone);
+  border-bottom: 1px solid var(--line-strong);
   padding-bottom: 2px;
 }
 
@@ -816,9 +837,9 @@ section { position: relative; }
    12. FOOTER
    --------------------------------------------------------------------- */
 .footer {
-  background: var(--ink);
-  color: var(--stone-on-dark);
-  border-top: 1px solid var(--line-on-dark);
+  background: var(--bg-3);
+  color: var(--stone);
+  border-top: 1px solid var(--line);
   padding: 48px 0;
 }
 .footer__inner {
@@ -831,7 +852,7 @@ section { position: relative; }
 .footer__name {
   font-family: var(--serif);
   font-style: italic;
-  color: var(--text-on-dark);
+  color: var(--text);
 }
 .footer__role { font-size: 0.9rem; }
 .footer__links {
@@ -840,7 +861,7 @@ section { position: relative; }
   flex-wrap: wrap;
   font-size: 0.9rem;
 }
-.footer__links a:hover { color: var(--text-on-dark); }
+.footer__links a:hover { color: var(--brass); }
 .footer__copy { font-size: 0.85rem; }
 
 @media (max-width: 640px) {
@@ -851,7 +872,7 @@ section { position: relative; }
    13. PLACEHOLDER CASE-STUDY PAGES (shared with /projects/*.html)
    --------------------------------------------------------------------- */
 .case {
-  background: var(--paper);
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
 }
@@ -865,15 +886,18 @@ section { position: relative; }
   color: var(--stone);
   border-bottom: 1px solid var(--line-strong);
   margin-bottom: 40px;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
-.case__num { font-size: 0.85rem; color: var(--orange); font-weight: 600; margin-bottom: 16px; display: block; }
-.case__title { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 20ch; margin-bottom: 16px; }
+.case__back:hover { color: var(--brass); border-color: var(--brass); }
+.case__num { font-size: 0.85rem; color: var(--brass); font-weight: 600; margin-bottom: 16px; display: block; }
+.case__title { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 20ch; margin-bottom: 16px; color: var(--text); }
 .case__category { color: var(--stone); font-size: 1rem; }
 
 .case__media {
   margin: 0 var(--gutter);
   aspect-ratio: 16 / 9;
-  background: var(--paper-2);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
   overflow: hidden;
 }
 .case__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -888,7 +912,7 @@ section { position: relative; }
 }
 .case__section-label {
   font-size: 0.82rem;
-  color: var(--orange);
+  color: var(--brass);
   font-weight: 600;
   margin-bottom: 14px;
 }
@@ -896,6 +920,7 @@ section { position: relative; }
   font-family: var(--serif);
   font-size: clamp(1.4rem, 2.4vw, 1.8rem);
   margin-bottom: 14px;
+  color: var(--text);
 }
 .case__section p {
   color: var(--stone);

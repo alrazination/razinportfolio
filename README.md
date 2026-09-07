@@ -25,11 +25,12 @@ ra-portfolio/
     └── project-03.html
 ```
 
-## What changed in V2
+## What changed in V2 → V3
 
-This is a full editorial redesign, built on top of the same architecture as V1 — same file structure, same relative paths, same `siteConfig` / `projects` data model in `js/main.js`, same GitHub Pages deployment. What changed is the visual system and the information order:
+V2 was a full editorial redesign on top of the same architecture as V1 — same file structure, same relative paths, same `siteConfig` / `projects` data model in `js/main.js`, same GitHub Pages deployment. V3 kept that structure and moved the visual system to a dark, premium register:
 
-- **Palette:** warm paper (`#F1EEE7` / `#E8E3D9`) with near-black ink (`#171715`) and a deep dark-green surface (`#1B211F`) for two deliberate dark moments — the design-philosophy manifesto and the closing contact section. Acid (`#D9F36B`) and orange (`#F06A4E`) are used as punctuation, not paint.
+- **Palette:** warm near-black surfaces at three depths (`#15130E` base, `#1D1A14` elevated, `#0D0C08` deepest) instead of pure black, with cream text (`#F2EDE2`) and a single restrained muted-brass accent (`#C7A15A`) rather than a bright neon one — a second, quieter rust tone (`#9C5A3C`) appears only inside placeholder artwork. A very faint film-grain texture sits over the whole page for a tactile, printed feel rather than a flat "dark mode" look.
+- **Two bookend moments:** the design-philosophy manifesto and the closing contact section both sit on the deepest surface (`#0D0C08`), so the page's two boldest statements get the richest black.
 - **Type:** Newsreader (an editorial serif, used for headlines and italic accents) paired with Archivo (a grotesk sans, used for UI, labels and body copy) — no rounded geometric heading + Inter body formula.
 - **Shape:** rectangular buttons, underlined links, hairline rules. No pill buttons, no card grids, no border-radius-everything.
 - **Information order:** Selected Work now appears right after the hero, before Services — so a visitor sees evidence of the work before reading about what's on offer, per the brief.
@@ -42,8 +43,8 @@ This design is not a copy of Tyto's dark, game-world aesthetic, its typography, 
 
 ## What's placeholder right now
 
-- **Hero video** — `assets/videos/hero.mp4` isn't included yet. Until it's added, the hero shows a quiet warm-toned placeholder texture (in the site's own palette) as a real, working fallback — so the hero is never blank.
-- **Project & hero imagery** — the abstract line-art illustrations (`hero-poster.svg`, `project-01/02/03.svg`) are original placeholder graphics in the site's palette, standing in for real screenshots, photos or footage. They're intentionally schematic — a decision tree, a static-to-interactive transformation, a measurement chart — so they read as considered placeholders, not empty boxes.
+- **Hero video** — `assets/videos/hero.mp4` isn't included yet. Until it's added, the hero shows a quiet dark placeholder atmosphere (in the site's own palette) as a real, working fallback — so the hero is never blank.
+- **Project & hero imagery** — the abstract line-art illustrations (`hero-poster.svg`, `project-01/02/03.svg`) are original placeholder graphics in the site's dark palette, standing in for real screenshots, photos or footage. They're intentionally schematic — a decision tree, a static-to-interactive transformation, a measurement chart — so they read as considered placeholders, not empty boxes.
 - **Project links** — all three "Selected Work" entries link to placeholder pages in `/projects/` with the full case-study section scaffold (problem, audience, design question, approach, experience, process, result, reflection) marked "coming soon." No metrics, outcomes or testimonials are invented anywhere.
 - **Email / LinkedIn** — intentionally blank until you provide them (see below). The site does not invent contact details.
 
